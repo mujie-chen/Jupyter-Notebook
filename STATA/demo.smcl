@@ -1,0 +1,727 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/mujiechen/Jupyter-Notebook/STATA/demo.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}28 Apr 2025, 15:09:37
+
+{com}. help meta
+
+. 
+. import excel "/Users/mujiechen/Jupyter-Notebook/STATA/Datasets/Pigott 2022.xlsx", sheet("Sheet1") firstrow
+{res}{text}(7 vars, 4 obs)
+
+{com}. save "Pigott.2022.dta", clear
+{err}option {bf:clear} not allowed
+{txt}{search r(198), local:r(198);}
+
+{com}. 
+. save "Pigott.2022.dta", replace
+{txt}{p 0 4 2}
+(file {bf}
+Pigott.2022.dta{rm}
+not found)
+{p_end}
+{p 0 4 2}
+file {bf}
+Pigott.2022.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. use "Pigott.2022.dta", clear
+
+. 
+. des /*describe dataset*/
+{err}/ invalid name
+{txt}{search r(198), local:r(198);}
+
+{com}. codebook
+
+{txt}{hline}
+{res}Study{right:Study}
+{txt}{hline}
+
+{col 19}Type: String ({res}str15{txt})
+
+{col 10}Unique values: {res}4{col 51}{txt}Missing "": {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}"A'Campo"
+{col 20}         1{col 32}"Montgometry"
+{col 20}         1{col 32}"Navarta-Sanchez"
+{col 20}         1{col 32}"Pearl-Kraus"
+
+{txt}{hline}
+{res}nt{right:nt}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}int{txt})
+
+{col 18}Range: [{res}9{txt},{res}140{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}9
+{col 20}         1{col 32}29
+{col 20}         1{col 32}51
+{col 20}         1{col 32}140
+
+{txt}{hline}
+{res}meant{right:meant}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}-3.1{txt},{res}41{txt}]{col 55}Units: {res}.1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}-3.1
+{col 20}         1{col 32}20.4
+{col 20}         1{col 32}25.7
+{col 20}         1{col 32}41
+
+{txt}{hline}
+{res}sdt{right:sdt}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}7.8{txt},{res}21.3{txt}]{col 55}Units: {res}.1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}7.8
+{col 20}         1{col 32}14.8
+{col 20}         1{col 32}16.6
+{col 20}         1{col 32}21.3
+
+{txt}{hline}
+{res}nc{right:nc}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}int{txt})
+
+{col 18}Range: [{res}12{txt},{res}150{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}12
+{col 20}         1{col 32}28
+{col 20}         1{col 32}59
+{col 20}         1{col 32}150
+
+{txt}{hline}
+{res}meanc{right:meanc}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}1.8{txt},{res}43.5{txt}]{col 55}Units: {res}.1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}1.8
+{col 20}         1{col 32}17
+{col 20}         1{col 32}31.9
+{col 20}         1{col 32}43.5
+
+{txt}{hline}
+{res}sdc{right:sdc}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}6.7{txt},{res}24.5{txt}]{col 55}Units: {res}.1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}6.7
+{col 20}         1{col 32}12.9
+{col 20}         1{col 32}13.4
+{col 20}         1{col 32}24.5
+
+{com}. meta esize nt meant sddt nc meanc sdc /*compute effect size for 2 groups*/
+{err}variable {bf}sddt{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. 
+. meta esize nt meant sdt nc meanc sdc /*compute effect size for 2 groups*/
+{err}/ invalid name
+{txt}{search r(198), local:r(198);}
+
+{com}. meta forestplot
+{err}data not {bf:meta} set
+{p 4 4 2}You must declare your meta-analysis data using either {helpb meta set} or {helpb meta esize}.{p_end}
+{txt}{search r(119), local:r(119);}
+
+{com}. meta esize nt meant sdt nc meanc sdc /*compute effect size for 2 groups*/
+{err}/ invalid name
+{txt}{search r(198), local:r(198);}
+
+{com}. 
+. 
+. use "Pigott.2022.dta", clear
+
+. des /*describe dataset*/
+{err}/ invalid name
+{txt}{search r(198), local:r(198);}
+
+{com}. codebook /*shows missing values*/
+{err}/ invalid name
+{txt}{search r(198), local:r(198);}
+
+{com}. meta esize nt meant sdt nc meanc sdc /*compute effect size for 2 groups*/
+{err}/ invalid name
+{txt}{search r(198), local:r(198);}
+
+{com}. meta forestplot
+{err}data not {bf:meta} set
+{p 4 4 2}You must declare your meta-analysis data using either {helpb meta set} or {helpb meta esize}.{p_end}
+{txt}{search r(119), local:r(119);}
+
+{com}. use "Pigott.2022.dta", clear
+
+. 
+. des
+
+{txt}Contains data from {res}Pigott.2022.dta
+{txt} Observations:{res}             4                  
+{txt}    Variables:{res}             7                  28 Apr 2025 15:15
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:Study          }{txt}{bind: str15   }{bind:%15s      }{space 1}{bind:         }{bind:  }{res}{res}Study{p_end}
+{p 0 48}{bind:nt             }{txt}{bind: int     }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}nt{p_end}
+{p 0 48}{bind:meant          }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}meant{p_end}
+{p 0 48}{bind:sdt            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}sdt{p_end}
+{p 0 48}{bind:nc             }{txt}{bind: int     }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}nc{p_end}
+{p 0 48}{bind:meanc          }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}meanc{p_end}
+{p 0 48}{bind:sdc            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}sdc{p_end}
+{txt}{hline}
+Sorted by: 
+
+{com}. codebook
+
+{txt}{hline}
+{res}Study{right:Study}
+{txt}{hline}
+
+{col 19}Type: String ({res}str15{txt})
+
+{col 10}Unique values: {res}4{col 51}{txt}Missing "": {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}"A'Campo"
+{col 20}         1{col 32}"Montgometry"
+{col 20}         1{col 32}"Navarta-Sanchez"
+{col 20}         1{col 32}"Pearl-Kraus"
+
+{txt}{hline}
+{res}nt{right:nt}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}int{txt})
+
+{col 18}Range: [{res}9{txt},{res}140{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}9
+{col 20}         1{col 32}29
+{col 20}         1{col 32}51
+{col 20}         1{col 32}140
+
+{txt}{hline}
+{res}meant{right:meant}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}-3.1{txt},{res}41{txt}]{col 55}Units: {res}.1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}-3.1
+{col 20}         1{col 32}20.4
+{col 20}         1{col 32}25.7
+{col 20}         1{col 32}41
+
+{txt}{hline}
+{res}sdt{right:sdt}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}7.8{txt},{res}21.3{txt}]{col 55}Units: {res}.1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}7.8
+{col 20}         1{col 32}14.8
+{col 20}         1{col 32}16.6
+{col 20}         1{col 32}21.3
+
+{txt}{hline}
+{res}nc{right:nc}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}int{txt})
+
+{col 18}Range: [{res}12{txt},{res}150{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}12
+{col 20}         1{col 32}28
+{col 20}         1{col 32}59
+{col 20}         1{col 32}150
+
+{txt}{hline}
+{res}meanc{right:meanc}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}1.8{txt},{res}43.5{txt}]{col 55}Units: {res}.1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}1.8
+{col 20}         1{col 32}17
+{col 20}         1{col 32}31.9
+{col 20}         1{col 32}43.5
+
+{txt}{hline}
+{res}sdc{right:sdc}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}6.7{txt},{res}24.5{txt}]{col 55}Units: {res}.1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}4
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}6.7
+{col 20}         1{col 32}12.9
+{col 20}         1{col 32}13.4
+{col 20}         1{col 32}24.5
+
+{com}. meta esize nt meant sdt nc meanc sdc
+{res}
+{txt}Meta-analysis setting information
+
+{col 2}Study information
+{col 5}No. of studies: {res}4
+{col 8}{txt}Study label: Generic
+{col 9}Study size: {res}_meta_studysize
+{col 7}{txt}Summary data: {res}nt meant sdt nc meanc sdc
+
+{col 8}{txt}Effect size
+{col 15}Type: {res}hedgesg
+{col 14}{txt}Label: Hedges's g
+{col 11}Variable: {res}_meta_es
+{col 4}{txt}Bias correction: Approximate
+
+{col 10}Precision
+{col 10}Std. err.: {res}_meta_se
+{col 5}{txt}Std. err. adj.: None
+{col 17}CI: [{res}_meta_cil{txt}, {res}_meta_ciu{txt}]
+{col 11}CI level: {res}95{txt}%
+
+{col 3}Model and method
+{col 14}Model: Random effects
+{col 13}Method: REML
+
+{com}. meta forestplot
+{res}
+{txt}{col 3}Effect-size label: Hedges's g
+{col 9}Effect size: {res}_meta_es
+{txt}{col 11}Std. err.: {res}_meta_se
+
+{com}. clear
+
+. webuse nsaids
+{txt}(Effectiveness of nonsteroidal anti-inflammatory drugs)
+
+{com}. des
+
+{txt}Contains data from {res}https://www.stata-press.com/data/r18/nsaids.dta
+{txt} Observations:{res}            37                  Effectiveness of
+                                                nonsteroidal
+                                                anti-inflammatory drugs
+{txt}    Variables:{res}             5                  24 Apr 2022 17:09
+                                              (_dta has notes)
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:study          }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}Study ID{p_end}
+{p 0 48}{bind:nstreat        }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}Number of successes in the treatment arm{p_end}
+{p 0 48}{bind:nftreat        }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Number of failures in the treatment arm{p_end}
+{p 0 48}{bind:nscontrol      }{txt}{bind: byte    }{bind:%8.0g     }{space 1}{bind:         }{bind:  }{res}{res}Number of successes in the control arm{p_end}
+{p 0 48}{bind:nfcontrol      }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Number of failures in the control arm{p_end}
+{txt}{hline}
+Sorted by: 
+
+{com}. meta esize nstreat nftreat nscontrol nfcontrol
+{res}
+{txt}Meta-analysis setting information
+
+{col 2}Study information
+{col 5}No. of studies: {res}37
+{col 8}{txt}Study label: Generic
+{col 9}Study size: {res}_meta_studysize
+{col 7}{txt}Summary data: {res}nstreat nftreat nscontrol nfcontrol
+
+{col 8}{txt}Effect size
+{col 15}Type: {res}lnoratio
+{col 14}{txt}Label: Log odds-ratio
+{col 11}Variable: {res}_meta_es
+{col 4}{txt}Zero-cells adj.: {res}0.5, only0
+
+{col 10}{txt}Precision
+{col 10}Std. err.: {res}_meta_se
+{col 17}{txt}CI: [{res}_meta_cil{txt}, {res}_meta_ciu{txt}]
+{col 11}CI level: {res}95{txt}%
+
+{col 3}Model and method
+{col 14}Model: Random effects
+{col 13}Method: REML
+
+{com}. meta forestplot
+{res}
+{txt}{col 3}Effect-size label: Log odds-ratio
+{col 9}Effect size: {res}_meta_es
+{txt}{col 11}Std. err.: {res}_meta_se
+
+{com}. 
+. clear
+
+. 
+. import excel "/Users/mujiechen/Jupyter-Notebook/STATA/Datasets/Huang 2022.xlsx", sheet("Sheet1") firstrow
+{res}{text}(8 vars, 8 obs)
+
+{com}. save "Huang 2022.dta", replace
+{txt}{p 0 4 2}
+(file {bf}
+Huang 2022.dta{rm}
+not found)
+{p_end}
+{p 0 4 2}
+file {bf}
+Huang 2022.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. use "Huang 2022.dta", clear
+
+. des
+
+{txt}Contains data from {res}Huang 2022.dta
+{txt} Observations:{res}             8                  
+{txt}    Variables:{res}             8                  28 Apr 2025 15:26
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:Study          }{txt}{bind: str15   }{bind:%15s      }{space 1}{bind:         }{bind:  }{res}{res}Study{p_end}
+{p 0 48}{bind:RR             }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}RR{p_end}
+{p 0 48}{bind:LCI            }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}LCI{p_end}
+{p 0 48}{bind:UCI            }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}UCI{p_end}
+{p 0 48}{bind:Design         }{txt}{bind: str2    }{bind:%9s       }{space 1}{bind:         }{bind:  }{res}{res}Design{p_end}
+{p 0 48}{bind:Participants   }{txt}{bind: str9    }{bind:%9s       }{space 1}{bind:         }{bind:  }{res}{res}Participants{p_end}
+{p 0 48}{bind:Followupyears  }{txt}{bind: str3    }{bind:%9s       }{space 1}{bind:         }{bind:  }{res}{res}Follow-up years{p_end}
+{p 0 48}{bind:H              }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}{p_end}
+{txt}{hline}
+Sorted by: 
+
+{com}. codebook
+
+{txt}{hline}
+{res}Study{right:Study}
+{txt}{hline}
+
+{col 19}Type: String ({res}str15{txt})
+
+{col 10}Unique values: {res}8{col 51}{txt}Missing "": {res}0{txt}/{res}8
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}"Carter 2007"
+{col 20}         1{col 32}"Cordonnier 2007"
+{col 20}         1{col 32}"Johnson 2020"
+{col 20}         1{col 32}"Kawakami"
+{col 20}         1{col 32}"Keret 2020"
+{col 20}         1{col 32}"Schnier 2020"
+{col 20}         1{col 32}"Tsai 2021men"
+{col 20}         1{col 32}"Tsai 2021women"
+
+{txt}{col 16}Warning: Variable has embedded blanks.
+
+{txt}{hline}
+{res}RR{right:RR}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}1.56{txt},{res}4.31{txt}]{col 55}Units: {res}.01
+{col 10}{txt}Unique values: {res}8{col 51}{txt}Missing .: {res}0{txt}/{res}8
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}1.56
+{col 20}         1{col 32}1.89
+{col 20}         1{col 32}2.11
+{col 20}         1{col 32}2.5
+{col 20}         1{col 32}2.66
+{col 20}         1{col 32}2.95
+{col 20}         1{col 32}3.81
+{col 20}         1{col 32}4.31
+
+{txt}{hline}
+{res}LCI{right:LCI}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}double{txt})
+
+{col 18}Range: [{res}.61{txt},{res}2.62{txt}]{col 55}Units: {res}.01
+{col 10}{txt}Unique values: {res}7{col 51}{txt}Missing .: {res}0{txt}/{res}8
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         1{col 32}.61
+{col 20}         1{col 32}1.13
+{col 20}         2{col 32}1.62
+{col 20}         1{col 32}1.78
+{col 20}         1{col 32}1.9
+{col 20}         1{col 32}2.35
+{col 20}         1{col 32}2.62
+
+{txt}{hline}
+{res}UCI{right:UCI}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}byte{txt})
+
+{col 18}Range: [{res}.{txt},{res}.{txt}]{col 55}Units: {res}.
+{col 10}{txt}Unique values: {res}0{col 51}{txt}Missing .: {res}8{txt}/{res}8
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         8{col 32}.
+
+{txt}{hline}
+{res}Design{right:Design}
+{txt}{hline}
+
+{col 19}Type: String ({res}str2{txt})
+
+{col 10}Unique values: {res}2{col 51}{txt}Missing "": {res}0{txt}/{res}8
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         3{col 32}"PC"
+{col 20}         5{col 32}"RC"
+
+{txt}{hline}
+{res}Participants{right:Participants}
+{txt}{hline}
+
+{col 19}Type: String ({res}str9{txt})
+
+{col 10}Unique values: {res}2{col 51}{txt}Missing "": {res}0{txt}/{res}8
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         6{col 32}"Community"
+{col 20}         2{col 32}"Hospital"
+
+{txt}{hline}
+{res}Followupyears{right:Follow-up years}
+{txt}{hline}
+
+{col 19}Type: String ({res}str3{txt})
+
+{col 10}Unique values: {res}2{col 51}{txt}Missing "": {res}0{txt}/{res}8
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         4{col 32}"<=8"
+{col 20}         4{col 32}">8"
+
+{txt}{hline}
+{res}H{right:(unlabeled)}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}byte{txt})
+
+{col 18}Range: [{res}.{txt},{res}.{txt}]{col 55}Units: {res}.
+{col 10}{txt}Unique values: {res}0{col 51}{txt}Missing .: {res}8{txt}/{res}8
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         8{col 32}.
+
+{com}. meta esize Study RR LCI UCI Design Participants Followupyears H
+{err}too many variables specified
+{txt}{search r(103), local:r(103);}
+
+{com}. meta forestplot
+{err}data not {bf:meta} set
+{p 4 4 2}You must declare your meta-analysis data using either {helpb meta set} or {helpb meta esize}.{p_end}
+{txt}{search r(119), local:r(119);}
+
+{com}. meta esize Study RR LCI UCI
+{err}string variables not allowed in varlist;
+{bf}Study{sf} is a string variable
+{txt}{search r(109), local:r(109);}
+
+{com}. meta forestplot
+{err}data not {bf:meta} set
+{p 4 4 2}You must declare your meta-analysis data using either {helpb meta set} or {helpb meta esize}.{p_end}
+{txt}{search r(119), local:r(119);}
+
+{com}. 
+. gen logrr=ln(RR) /*effect sizes are precalculated risk ratios*/
+{err}unknown function ()
+{txt}{search r(133), local:r(133);}
+
+{com}. gen selogrr=(ln(RR)-ln(LCI)/1.96) /*SE is rr - lower CI / 1.96*/
+{err}unknown function ()
+{txt}{search r(133), local:r(133);}
+
+{com}. gen logrr=ln(RR)
+
+. gen selogrr=(ln(RR)-ln(LCI)/1.96)
+
+. meta set logrr selogrr, studylabel(Study)
+
+{txt}Meta-analysis setting information
+
+{col 2}Study information
+{col 5}No. of studies: {res}8
+{col 8}{txt}Study label: {res}Study
+{col 9}{txt}Study size: N/A
+
+{col 8}Effect size
+{col 15}Type: <generic>
+{col 14}Label: Effect size
+{col 11}Variable: {res}logrr
+
+{col 10}{txt}Precision
+{col 10}Std. err.: {res}selogrr
+{col 17}{txt}CI: [{res}_meta_cil{txt}, {res}_meta_ciu{txt}]
+{col 11}CI level: {res}95{txt}%
+
+{col 3}Model and method
+{col 14}Model: Random effects
+{col 13}Method: REML
+
+{com}. meta summarize
+{res}
+{txt}{col 3}Effect-size label: Effect size
+{col 9}Effect size: {res}logrr
+{txt}{col 11}Std. err.: {res}selogrr
+{txt}{col 9}Study label: {res}Study
+
+{txt}Meta-analysis summary{col 43}Number of studies = {res}     8
+{txt}Random-effects model{col 43}Heterogeneity:
+Method: REML {res}{txt}{col 55}tau2 = {res} 0.0000
+{txt}{col 53}I2 (%) = {res}   0.00
+{txt}{col 57}H2 = {res}   1.00
+
+{txt}{hline 18}{c TT}{hline 15}{hline 12}{hline 12}{hline 10}
+{col 1}            Study{col 19}{c |}    Effect size{col 35}    [95% conf. interval]{col 59}  % weight
+{hline 18}{c +}{hline 15}{hline 12}{hline 12}{hline 10}
+{col 1}      Carter 2007{col 19}{c |}{res}{space 6}    0.445{col 35}{space 3}   -0.921{col 47}{space 3}    1.811{col 59}{space 5} 8.90
+{col 1}{txt}       Keret 2020{col 19}{c |}{res}{space 6}    0.637{col 35}{space 3}   -0.129{col 47}{space 3}    1.402{col 59}{space 5}28.35
+{col 1}{txt}     Johnson 2020{col 19}{c |}{res}{space 6}    0.747{col 35}{space 3}   -0.140{col 47}{space 3}    1.634{col 59}{space 5}21.11
+{col 1}{txt}     Schnier 2020{col 19}{c |}{res}{space 6}    0.916{col 35}{space 3}   -0.025{col 47}{space 3}    1.858{col 59}{space 5}18.73
+{col 1}{txt}   Tsai 2021women{col 19}{c |}{res}{space 6}    0.978{col 35}{space 3}   -0.457{col 47}{space 3}    2.413{col 59}{space 5} 8.06
+{col 1}{txt}     Tsai 2021men{col 19}{c |}{res}{space 6}    1.082{col 35}{space 3}   -0.397{col 47}{space 3}    2.560{col 59}{space 5} 7.60
+{col 1}{txt}  Cordonnier 2007{col 19}{c |}{res}{space 6}    1.338{col 35}{space 3}   -1.162{col 47}{space 3}    3.837{col 59}{space 5} 2.66
+{col 1}{txt}         Kawakami{col 19}{c |}{res}{space 6}    1.461{col 35}{space 3}   -0.439{col 47}{space 3}    3.361{col 59}{space 5} 4.60
+{txt}{hline 18}{c +}{hline 15}{hline 12}{hline 12}{hline 10}
+{col 1}            theta{col 19}{c |}{res}{space 6}    0.813{col 35}{space 3}    0.406{col 47}{space 3}    1.220
+{txt}{hline 18}{c BT}{hline 15}{hline 12}{hline 12}{hline 10}
+Test of theta = 0: z = {res}3.91{txt}{col 50}Prob > |z| = {res}0.0001
+{txt}Test of homogeneity: Q = chi2({res}7{txt}) = {res}1.35{txt}{col 52}Prob > Q = {res}0.9872
+
+{com}. meta forestplot
+{res}
+{txt}{col 3}Effect-size label: Effect size
+{col 9}Effect size: {res}logrr
+{txt}{col 11}Std. err.: {res}selogrr
+{txt}{col 9}Study label: {res}Study
+
+{com}. meta summarize subgroup(Participants) random(dlaird)
+{err}varlist not allowed
+{txt}{search r(101), local:r(101);}
+
+{com}. meta forestplot
+{res}
+{txt}{col 3}Effect-size label: Effect size
+{col 9}Effect size: {res}logrr
+{txt}{col 11}Std. err.: {res}selogrr
+{txt}{col 9}Study label: {res}Study
+
+{com}. meta summarize subgroup (Participants) random(dlaird)
+{err}varlist not allowed
+{txt}{search r(101), local:r(101);}
+
+{com}. 
+. meta forestplot, subgroup (Participants) random(dlaird)
+{res}
+{txt}{col 3}Effect-size label: Effect size
+{col 9}Effect size: {res}logrr
+{txt}{col 11}Std. err.: {res}selogrr
+{txt}{col 9}Study label: {res}Study
+
+{com}. 
+. meta forestplot, subgroup (Participants) random(dlaird)
+{res}
+{txt}{col 3}Effect-size label: Effect size
+{col 9}Effect size: {res}logrr
+{txt}{col 11}Std. err.: {res}selogrr
+{txt}{col 9}Study label: {res}Study
+
+{com}. 
+. {res}{com}meta funnelplot, random
+{res}
+{txt}{col 3}Effect-size label: Effect size
+{col 9}Effect size: {res}logrr
+{txt}{col 11}Std. err.: {res}selogrr
+{txt}{col 15}Model: Random effects
+{col 14}Method: REML
+
+{com}. 
+. meta bias, egger
+
+{txt}{col 3}Effect-size label: Effect size
+{col 9}Effect size: {res}logrr
+{txt}{col 11}Std. err.: {res}selogrr
+
+{txt}Regression-based Egger test for small-study effects
+Random-effects model
+Method: REML
+
+H0: beta1 = 0; no small-study effects
+{col 13}beta1 = {res}     0.81
+{txt}{col 7}SE of beta1 = {res}    1.040
+{txt}{col 17}z = {res}     0.78
+{txt}{col 8}Prob > |z| = {res}   0.4357
+
+{com}. 
+. meta bias, begg
+
+{txt}{col 3}Effect-size label: Effect size
+{col 9}Effect size: {res}logrr
+{txt}{col 11}Std. err.: {res}selogrr
+
+{txt}Begg's test for small-study effects
+
+Kendall's score = {res}    18.00
+{txt}{col 5}SE of score = {res}    8.083
+{txt}{col 15}z = {res}     2.10
+{txt}{col 6}Prob > |z| = {res}   0.0354
+
+{com}. 
+. clear
+
+. exit
